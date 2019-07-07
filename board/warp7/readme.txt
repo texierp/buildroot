@@ -20,7 +20,7 @@ You will find in output/images/ the following files:
   - rootfs.ext4
   - rootfs.tar
   - sdcard.img
-  - u-boot.imx
+  - u-boot-dtb.imx
   - zImage
 
 Flash the eMMC image
@@ -61,11 +61,11 @@ Connect a USB to serial adapter between the host PC and warp7 serial
 USB port, and also a USB cable between the OTG warp7 port and the host
 PC.
 
-Copy u-boot.imx to the imx_usb_loader folder.
+Copy u-boot-dtb.imx to the imx_usb_loader folder.
 
 Load u-boot.imx via USB:
 
-$ sudo ./imx_usb u-boot.imx
+$ sudo ./imx_usb u-boot-dtb.imx
 
 Then U-Boot should start and its messages will appear in the console program.
 
