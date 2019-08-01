@@ -1,0 +1,39 @@
+From df6c7c4fd5c10cadb3dfadc4eb7318764dd45c09 Mon Sep 17 00:00:00 2001
+From: Pierre-Jean Texier <pjtexier@koncepto.io>
+Date: Sun, 15 Sep 2019 21:42:12 +0200
+Subject: [PATCH] CMakeLists: fix build with old compilers
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The libubootenv code uses some C99 constructs, but old compilers such
+as gcc 4.7 don't default to -std=c99. This commit makes sure libubootenv
+is built with -std=gnu99.
+
+Fixes:
+
+src/uboot_env.c:897:5: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode
+     for (int i = 0; i < strlen(pval); i++) {
+     ^
+
+Signed-off-by: Pierre-Jean Texier <pjtexier@koncepto.io>
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 118fc32..e7bde49 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,6 +8,8 @@ set(VERSION	"0.1")
+ SET(SOVERSION "${VERSION}")
+ add_definitions(-DVERSION="${VERSION}")
+ 
++set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
++
+ #set(CMAKE_C_FLAGS_DEBUG "-g")
+ include_directories ("${PROJECT_SOURCE_DIR}/src")
+ add_subdirectory (src)
+-- 
+2.7.4
+
